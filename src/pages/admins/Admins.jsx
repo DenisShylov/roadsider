@@ -1,31 +1,35 @@
-import { Box, CircularProgress, TableCell, TableRow } from '@mui/material';
-import React, { useEffect } from 'react';
-import BaseTable from '../../components/common/baseTable/BaseTable';
-import { adminsNameCells } from '../../constants/Constants';
+import { TableCell, TableRow } from '@mui/material';
 import _startCase from 'lodash/startCase';
-import BaseEditBtn from '../../components/common/baseEditBtn/BaseEditBtn';
-import BaseDetailsBtn from '../../components/common/baseDetailsBtn/BaseDetailsBtn';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useGetAdminsListApiQuery } from '../../redux/API/AdminsAPI';
+//Local files
+import BaseCreateBtn from '../../components/common/baseCreateBtn/BaseCreateBtn';
+import BaseDetailsBtn from '../../components/common/baseDetailsBtn/BaseDetailsBtn';
+import BaseEditBtn from '../../components/common/baseEditBtn/BaseEditBtn';
+import BaseTable from '../../components/common/baseTable/BaseTable';
+import { MainContainer } from '../../components/ui/CommonStyles';
+import useConstants from '../../constants/Constants';
 import useAdmins from '../../hooks/useAdmins';
+import { useGetAdminsListApiQuery } from '../../redux/API/AdminsAPI';
+
 const Admins = () => {
+  const { adminsNameCells, access_token } = useConstants();
   const { adminsList } = useAdmins();
-  const { access_token } = useSelector((state) => state.activeSession.session);
-  const list = useSelector((state) => state.adminsList);
-  const { responseAdmins, isLoading } = useGetAdminsListApiQuery({
+  const list = useSelector((state) => state.adminsList?.all?.data);
+  //async request
+  const { data, isLoading } = useGetAdminsListApiQuery({
     access_token,
-    limit: 25,
-    offset: 0,
   });
 
   useEffect(() => {
-    adminsList(responseAdmins);
-  }, [responseAdmins, adminsList]);
-  console.log(responseAdmins);
+    const getAdmins = () => {
+      if (data) {
+        adminsList(data);
+      }
+    };
+    getAdmins();
+  }, [data, adminsList]);
 
-  if (isLoading) {
-    <CircularProgress />;
-  }
   const headerCells = adminsNameCells.map((name, index) => {
     let textAlign = null;
     if (index === adminsNameCells.length - 1) {
@@ -41,22 +45,27 @@ const Admins = () => {
     );
   });
 
-  const bodyCells = list?.admins
-    ? list.admins
-    : [].map((list) => (
-        <TableRow key={list?.id}>
-          <TableCell>{list?.email}</TableCell>
+  const bodyCells = list.map(({ id, email }) => (
+    <TableRow key={id}>
+      <TableCell>{email}</TableCell>
 
-          <TableCell sx={{ textAlign: 'right' }}>
-            <BaseDetailsBtn />
-            <BaseEditBtn />
-          </TableCell>
-        </TableRow>
-      ));
+      <TableCell sx={{ textAlign: 'right' }}>
+        <BaseDetailsBtn />
+        <BaseEditBtn />
+      </TableCell>
+    </TableRow>
+  ));
+
   return (
-    <Box component="main" sx={{ ml: '240px', p: 3, display: 'flex' }}>
-      <BaseTable headerCells={headerCells} bodyCells={bodyCells} />
-    </Box>
+    <MainContainer component="main">
+      <BaseCreateBtn />
+
+      <BaseTable
+        loading={isLoading}
+        headerCells={headerCells}
+        bodyCells={bodyCells}
+      />
+    </MainContainer>
   );
 };
 

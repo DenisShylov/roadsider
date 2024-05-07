@@ -1,3 +1,9 @@
+import {
+  Box,
+  CircularProgress,
+  TableCell,
+  TablePagination,
+} from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -5,17 +11,46 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import React from 'react';
+import Progress from '../progress/Progress';
+import { ColumnContainer } from './BaseTable.styled';
 
-const BaseTable = ({ headerCells, bodyCells }) => {
+const BaseTable = ({ loading, headerCells, bodyCells }) => {
   return (
-    <TableContainer component={Paper} sx={{ margin: 'auto' }}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>{headerCells}</TableRow>
-        </TableHead>
-        <TableBody>{bodyCells}</TableBody>
-      </Table>
-    </TableContainer>
+    <ColumnContainer>
+      <TableContainer component={Paper} sx={{ margin: 'auto' }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {loading ? (
+                <TableCell sx={{ bgcolor: 'white' }}></TableCell>
+              ) : (
+                headerCells
+              )}
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {loading ? (
+              <TableRow>
+                <TableCell>
+                  <Progress />
+                </TableCell>
+              </TableRow>
+            ) : (
+              bodyCells
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        component="div"
+        count={bodyCells?.length}
+        page={0}
+        onPageChange={(e) => e + 1}
+        rowsPerPage={-1}
+        rowsPerPageOptions={[]}
+      />
+    </ColumnContainer>
   );
 };
 

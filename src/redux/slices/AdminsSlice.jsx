@@ -1,15 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const adminsList = createSlice({
-  name: 'admins',
-  initialState: [],
+const adminsData = createSlice({
+  name: 'adminsData',
+  initialState: { all: { data: [] }, admin: { id: '', email: '' } },
   reducers: {
     addAdminsList(state, action) {
-      state = action.payload;
+      state.all.data = action.payload?.admins;
+      console.log(state);
+      console.log(action.payload);
     },
   },
 });
 
-export const { addAdminsList } = adminsList.actions;
+export const { addAdminsList } = adminsData.actions;
 
-export default adminsList.reducer;
+export default adminsData.reducer;

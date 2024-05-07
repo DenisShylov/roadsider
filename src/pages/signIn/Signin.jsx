@@ -22,8 +22,6 @@ import {
 import { useCreateSessionApiMutation } from '../../redux/API/SessionAPI';
 
 import useSession from '../../hooks/useSession';
-import { useSelector } from 'react-redux';
-import { sessionService } from 'redux-react-session';
 
 const Signin = () => {
   const [email, setEmail] = useState('');
@@ -44,18 +42,10 @@ const Signin = () => {
     };
 
     await requestSession(session).unwrap();
-
-    if (data) {
-      createSession(data);
-      console.log(data.session);
-      await sessionService
-        .saveSession({ token: data.session.access_token })
-        .then(() => sessionService.saveUser(data.session?.userable));
-    }
   };
 
   useEffect(() => {
-    const test = async () => {
+    const test = () => {
       if (data) {
         createSession(data);
         navigate('/admins');

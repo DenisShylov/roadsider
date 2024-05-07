@@ -106,12 +106,12 @@ const Navigation = () => {
           </Button>
         </Box>
       </Drawer>
-      <Box
+      {/* <Box
         component="main"
         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
       >
         <Toolbar />
-      </Box>
+      </Box> */}
     </Box>
   );
 };

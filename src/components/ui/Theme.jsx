@@ -1,6 +1,13 @@
 import { createTheme } from '@mui/material';
 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: 'rgb(63, 81, 181)',
+    },
+  },
+
+  // Defauld components
   components: {
     MuiListItemButton: {
       styleOverrides: {
