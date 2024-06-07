@@ -11,14 +11,21 @@ import { MainContainer } from '../../components/ui/CommonStyles';
 import useConstants from '../../constants/Constants';
 import useAdmins from '../../hooks/useAdmins';
 import { useGetAdminsListApiQuery } from '../../redux/API/AdminsAPI';
+import { BaseTableCell } from '../../components/common/baseTable/BaseTable.styled';
 
 const Admins = () => {
-  const { adminsNameCells, access_token } = useConstants();
+  const { adminsNameCells, access_token, ADMINS_ATTRIBUTES } = useConstants();
   const { adminsList } = useAdmins();
   const list = useSelector((state) => state.adminsList?.all?.data);
   //async request
   const { data, isLoading } = useGetAdminsListApiQuery({
-    access_token,
+    attributes: {
+      access_token,
+      limit: 25,
+      offset: 0,
+      orders: { email: 'asc' },
+      attributes: ADMINS_ATTRIBUTES,
+    },
   });
 
   useEffect(() => {
@@ -36,12 +43,9 @@ const Admins = () => {
       textAlign = 'right';
     }
     return (
-      <TableCell
-        key={name}
-        sx={{ color: 'white', flexGrow: 1, textAlign: textAlign }}
-      >
+      <BaseTableCell key={name} sx={{ textAlign: textAlign }}>
         {_startCase(name)}
-      </TableCell>
+      </BaseTableCell>
     );
   });
 

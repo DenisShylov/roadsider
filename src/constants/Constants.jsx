@@ -33,12 +33,30 @@ const useConstants = () => {
   );
   //ADMINS
   const adminsNameCells = ['email', 'actions'];
+  const ADMINS_ATTRIBUTES = ['id', 'email'];
 
   //COMPANIES
   const companiesNameCells = ['name', 'time_zone', 'actions'];
 
   //SESSION
   const SESSION_ATTRIBUTES = ['id', 'access_token'];
+
+  //INSURANCE_ACCOUNTS
+  const insuranseAccountsNameCells = [
+    'name',
+    'client_id',
+    'contact_name',
+    'contact_phone',
+    'provider_name',
+    'provider_phone',
+    'logged_in',
+    'actions',
+  ];
+
+  const SELECT_TYPE = [
+    { value: 'digital_dispatch_insurance_account', label: 'Digital Dispatch' },
+    { value: 'urgently_insurance_account', label: 'Urgently' },
+  ];
 
   // LIBRARY
   const SERVICE_TYPE = {
@@ -82,7 +100,10 @@ const useConstants = () => {
     adminsNameCells,
     companiesNameCells,
     SESSION_ATTRIBUTES,
+    ADMINS_ATTRIBUTES,
     SERVICE_TYPE,
+    insuranseAccountsNameCells,
+    SELECT_TYPE,
     // TableCells,
   };
 };

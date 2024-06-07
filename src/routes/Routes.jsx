@@ -6,8 +6,13 @@ import Signin from '../pages/signIn/Signin';
 import Admins from '../pages/admins/Admins';
 import Companies from '../pages/companies/Companies';
 import ProtectedRoutes from './ProtectedRoutes';
+import InsuranceAccounts from '../pages/insuranceAccounts/InsuranceAccounts';
 
 export const router = createBrowserRouter([
+  {
+    path: '/sign_in',
+    element: <Signin />,
+  },
   {
     path: '/',
     element: (
@@ -16,6 +21,7 @@ export const router = createBrowserRouter([
       </ProtectedRoutes>
     ),
     errorElement: <ErrorPage />,
+
     children: [
       {
         path: '/admins',
@@ -27,7 +33,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/insurance_accounts',
-        element: <div>insurance_accounts</div>,
+        element: <InsuranceAccounts />,
       },
       {
         path: '/users',
@@ -46,9 +52,5 @@ export const router = createBrowserRouter([
         element: <div>library</div>,
       },
     ],
-  },
-  {
-    path: '/sign_in',
-    element: <Signin />,
   },
 ]);

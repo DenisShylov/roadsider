@@ -99,8 +99,12 @@ const Signin = () => {
             label="Password"
           />
         </FormControl>
-        <LoginBtn onClick={handleLogin} variant="contained">
-          {isLoading ? <CircularProgress sx={{ color: 'black' }} /> : 'Log In'}
+        <LoginBtn
+          onClick={handleLogin}
+          variant="contained"
+          disabled={isLoading}
+        >
+          Log In
         </LoginBtn>
       </Box>
     </SigninContainer>

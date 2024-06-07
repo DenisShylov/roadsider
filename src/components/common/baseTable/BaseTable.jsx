@@ -1,9 +1,4 @@
-import {
-  Box,
-  CircularProgress,
-  TableCell,
-  TablePagination,
-} from '@mui/material';
+import { TableCell, TablePagination } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -18,14 +13,10 @@ const BaseTable = ({ loading, headerCells, bodyCells }) => {
   return (
     <ColumnContainer>
       <TableContainer component={Paper} sx={{ margin: 'auto' }}>
-        <Table>
+        <Table stickyHeader>
           <TableHead>
             <TableRow>
-              {loading ? (
-                <TableCell sx={{ bgcolor: 'white' }}></TableCell>
-              ) : (
-                headerCells
-              )}
+              {loading ? <TableCell></TableCell> : headerCells}
             </TableRow>
           </TableHead>
 

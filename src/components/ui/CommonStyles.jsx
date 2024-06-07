@@ -1,4 +1,4 @@
-import { Box, styled } from '@mui/material';
+import { Box, Button, styled } from '@mui/material';
 
 export const MainContainer = styled(Box)(({ theme }) => ({
   marginLeft: '240px',
@@ -7,3 +7,7 @@ export const MainContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   overflow: 'hidden',
 }));
+
+export const TableCellButtons = styled(Button)({
+  margin: 0,
+});

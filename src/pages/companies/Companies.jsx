@@ -10,11 +10,29 @@ import { MainContainer } from '../../components/ui/CommonStyles';
 import useConstants from '../../constants/Constants';
 import useCompanies from '../../hooks/useCompanies';
 import { useGetCompaniesQuery } from '../../redux/API/CompaniesAPI';
+import { BaseTableCell } from '../../components/common/baseTable/BaseTable.styled';
 
 const Companies = () => {
   const { access_token, companiesNameCells } = useConstants();
   const { data, isLoading } = useGetCompaniesQuery({
-    access_token,
+    params: {
+      access_token,
+      orders: { name: 'asc' },
+      limit: 25,
+
+      offset: 0,
+      attributes: [
+        'id',
+        'locations',
+        'name',
+        'time_zone',
+        'commission_value',
+        'mileage_calculation',
+        'stripe_account_id',
+        'stripe_charges_enabled',
+        'subscription_expired_at',
+      ],
+    },
   });
   const { companiesList } = useCompanies();
   const companiesDataStore = useSelector(
@@ -36,12 +54,9 @@ const Companies = () => {
       textAlign = 'right';
     }
     return (
-      <TableCell
-        key={name}
-        sx={{ color: 'white', flexGrow: 1, textAlign: textAlign }}
-      >
+      <BaseTableCell key={name} sx={{ textAlign: textAlign }}>
         {_startCase(name)}
-      </TableCell>
+      </BaseTableCell>
     );
   });
 

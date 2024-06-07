@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@mui/material';
+import { StyledEngineProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -13,10 +14,12 @@ import { router } from './routes/Routes';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-  </ThemeProvider>
+  <Provider store={store}>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </StyledEngineProvider>
+  </Provider>
 );

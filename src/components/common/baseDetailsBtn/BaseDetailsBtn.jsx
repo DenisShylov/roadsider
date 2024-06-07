@@ -1,7 +1,8 @@
-import { Button } from '@mui/material';
 import React from 'react';
+import { TableCellButtons } from '../../ui/CommonStyles';
+
 const BaseDetailsBtn = () => {
-  return <Button>details</Button>;
+  return <TableCellButtons>details</TableCellButtons>;
 };
 
 export default BaseDetailsBtn;
