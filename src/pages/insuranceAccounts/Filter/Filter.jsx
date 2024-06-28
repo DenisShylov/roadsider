@@ -6,16 +6,18 @@ import _startCase from 'lodash/startCase';
 import { TextField } from '@mui/material';
 import CompanyAutocomplete from '../../../components/common/CompanyAutocomplete/CompanyAutocomplete';
 import useConstants from '../../../constants/Constants';
+import { FiltersContainer } from '../../../components/ui/CommonStyles';
 
 const Filter = ({ type, changeType, companyId, changeCompanyId }) => {
   const { SELECT_TYPE } = useConstants();
+  console.log('FILTER CHANGE COMPANY ID ', typeof changeCompanyId);
   const handleChangeType = ({ target: { value } }) => {
     const filteredType = SELECT_TYPE.filter((type) => type.label === value);
 
     changeType(filteredType);
   };
   return (
-    <Box sx={{ width: '100%', display: 'flex' }}>
+    <FiltersContainer>
       <Box sx={{ width: '25%' }}>
         <TextField
           fullWidth
@@ -34,12 +36,13 @@ const Filter = ({ type, changeType, companyId, changeCompanyId }) => {
       </Box>
       <Box sx={{ width: '25%' }}>
         <CompanyAutocomplete
-          value={companyId.formattedValue}
+          value={companyId}
           changeCompanyId={changeCompanyId}
           filter={true}
+          sx={{ ml: '5px' }}
         />
       </Box>
-    </Box>
+    </FiltersContainer>
   );
 };
 

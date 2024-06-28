@@ -7,6 +7,7 @@ import Admins from '../pages/admins/Admins';
 import Companies from '../pages/companies/Companies';
 import ProtectedRoutes from './ProtectedRoutes';
 import InsuranceAccounts from '../pages/insuranceAccounts/InsuranceAccounts';
+import Users from '../pages/users/Users';
 
 export const router = createBrowserRouter([
   {
@@ -37,7 +38,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/users',
-        element: <div>users</div>,
+        element: <Users />,
       },
       {
         path: '/profile',

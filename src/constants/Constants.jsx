@@ -58,6 +58,21 @@ const useConstants = () => {
     { value: 'urgently_insurance_account', label: 'Urgently' },
   ];
 
+  // USERS
+  const usersRoles = [
+    { id: uuid(), value: 'driver' },
+    { id: uuid(), value: 'manager' },
+    { id: uuid(), value: 'owner' },
+  ];
+
+  const usersNameCells = [
+    { id: uuid(), value: 'email', align: 'left' },
+    { id: uuid(), value: 'name', align: 'center' },
+    { id: uuid(), value: 'roles', align: 'center' },
+    { id: uuid(), value: 'photo', align: 'center' },
+    { id: uuid(), value: 'actions', align: 'right' },
+  ];
+
   // LIBRARY
   const SERVICE_TYPE = {
     services: 'basic',
@@ -104,6 +119,8 @@ const useConstants = () => {
     SERVICE_TYPE,
     insuranseAccountsNameCells,
     SELECT_TYPE,
+    usersRoles,
+    usersNameCells,
     // TableCells,
   };
 };

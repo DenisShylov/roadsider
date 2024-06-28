@@ -1,12 +1,29 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+// import { REHYDRATE } from 'redux-persist';
+
+// const isHydrateAction = (action) => action.type === REHYDRATE;
+
+const sessionBody = {
+  session: { platform_type: 'web' },
+  attributes: ['id', 'platform_type', 'access_token'],
+};
 
 export const sessionAPI = createApi({
   reducerPath: 'session',
   baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_BASE_URL }),
-
+  // extractRehydrationInfo(action, { reducerPath }) {
+  //   if (isHydrateAction(action)) {
+  //     // When persisting the root reducer
+  //     return action.payload[sessionAPI.reducerPath];
+  //   }
+  // },
   endpoints: (build) => ({
     createSessionApi: build.mutation({
-      query: (body) => ({ url: 'sessions', method: 'POST', body }),
+      query: (data) => ({
+        url: 'sessions',
+        method: 'POST',
+        body: { ...data, ...sessionBody },
+      }),
       invalidatesTags: [{ type: 'Authenticated', id: 'Auth' }],
     }),
 

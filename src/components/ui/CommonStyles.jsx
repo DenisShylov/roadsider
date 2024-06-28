@@ -11,3 +11,8 @@ export const MainContainer = styled(Box)(({ theme }) => ({
 export const TableCellButtons = styled(Button)({
   margin: 0,
 });
+
+export const FiltersContainer = styled(Box)({
+  display: 'flex',
+  width: '100%',
+});

@@ -1,6 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { SerializedQs } from './Index';
 
+const adminsParams = {
+  limit: 25,
+  orders: { email: 'asc' },
+  attributes: ['id', 'email'],
+};
 export const adminsAPI = createApi({
   reducerPath: 'admins',
   baseQuery: fetchBaseQuery({
@@ -11,14 +16,13 @@ export const adminsAPI = createApi({
   endpoints: (build) => ({
     getAdminsListApi: build.query({
       query: (args) => {
-        const { attributes } = args;
-        console.log(args);
+        const { token, offset } = args;
+
         return {
           url: 'admins',
-          params: attributes,
+          params: { access_token: token, offset, ...adminsParams },
         };
       },
-      // `admins?access_token=${body.access_token}&limit=25&offset=0&orders[email]=asc&attributes[]=id&attributes[]=email`,
     }),
   }),
 });

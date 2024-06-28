@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import BaseTable from '../../components/common/baseTable/BaseTable';
-import BaseCreateBtn from '../../components/common/baseCreateBtn/BaseCreateBtn';
-import { MainContainer } from '../../components/ui/CommonStyles';
-import { useGetInsuranseAccQuery } from '../../redux/API/InsuranceAccAPI';
-import useConstants from '../../constants/Constants';
 import { Box, TableCell, TableRow } from '@mui/material';
+import _startCase from 'lodash/startCase';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+//Local files
+import BaseCreateBtn from '../../components/common/baseCreateBtn/BaseCreateBtn';
 import BaseDetailsBtn from '../../components/common/baseDetailsBtn/BaseDetailsBtn';
 import BaseEditBtn from '../../components/common/baseEditBtn/BaseEditBtn';
-import _startCase from 'lodash/startCase';
-import useInsuranceAccounts from '../../hooks/useInsuranceAccounts';
-import { useSelector } from 'react-redux';
-import Filter from './Filter/Filter';
+import BaseTable from '../../components/common/baseTable/BaseTable';
 import { BaseTableCell } from '../../components/common/baseTable/BaseTable.styled';
+import { MainContainer } from '../../components/ui/CommonStyles';
+import useConstants from '../../constants/Constants';
+import useInsuranceAccounts from '../../hooks/useInsuranceAccounts';
+import { useGetInsuranseAccQuery } from '../../redux/API/InsuranceAccAPI';
+import Filter from './Filter/Filter';
 
 const InsuranceAccounts = () => {
   const { SELECT_TYPE } = useConstants();
   const [type, setType] = useState(SELECT_TYPE);
-
+  const [offset, setOffset] = useState(0);
+  const pagination = useSelector(
+    (state) => state.insuranceList?.all.pagination
+  );
+  const { total_count } = pagination;
   const [companyId, setCompanyId] = useState({
     value: 'allCompanies',
     formattedValue: { id: 'allCompanies', name: 'All Companies' },
@@ -31,8 +36,9 @@ const InsuranceAccounts = () => {
 
   const { data, isLoading } = useGetInsuranseAccQuery({
     access_token,
+    ...(companyId && { company_id: companyId.formattedValue.id }),
     limit: 25,
-    offset: 0,
+    offset,
     orders: { name: 'asc' },
     insurance_accountable_type: type[0].value,
     attributes: [
@@ -78,6 +84,9 @@ const InsuranceAccounts = () => {
     ],
   });
 
+  const handleChangeCompanyId = (newValue) => {
+    setCompanyId(newValue);
+  };
   useEffect(() => {
     if (data) {
       insuranceAccountsList(data);
@@ -134,7 +143,7 @@ const InsuranceAccounts = () => {
           type={type}
           changeType={setType}
           companyId={companyId}
-          changeCompanyId={setCompanyId}
+          changeCompanyId={handleChangeCompanyId}
         />
         <BaseCreateBtn />
       </Box>
@@ -142,6 +151,8 @@ const InsuranceAccounts = () => {
         loading={isLoading}
         headerCells={headerCells}
         bodyCells={bodyCells}
+        offset={setOffset}
+        total_count={total_count}
       />
     </MainContainer>
   );

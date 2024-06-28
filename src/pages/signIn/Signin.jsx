@@ -34,14 +34,12 @@ const Signin = () => {
   const { createSession } = useSession();
 
   const handleLogin = async () => {
-    const session = {
-      session: { platform_type: 'web' },
+    const userData = {
       email: _trim(email),
       password,
-      attributes: ['id', 'platform_type', 'access_token'],
     };
 
-    await requestSession(session).unwrap();
+    await requestSession(userData).unwrap();
   };
 
   useEffect(() => {

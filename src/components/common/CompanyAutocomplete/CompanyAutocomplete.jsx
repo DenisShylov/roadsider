@@ -5,47 +5,51 @@ import React, { useEffect, useState } from 'react';
 import useConstants from '../../../constants/Constants';
 import { useLazyGetCompaniesQuery } from '../../../redux/API/CompaniesAPI';
 
-const CompanyAutocomplete = (value, changeCompanyId, filter) => {
+const CompanyAutocomplete = ({ value, changeCompanyId, filter, sx }) => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
+  const [query, setQuery] = useState('');
+  const [firstTimeOpen, setFirstTimeOpen] = useState(false);
 
   const { access_token } = useConstants();
   const [getCompanies, { data, isLoading, isSuccess }] =
     useLazyGetCompaniesQuery();
+  console.log('VALUE-COMPANY-ID', value);
+  console.log('CHANGE-COMPANY-ID', changeCompanyId);
+  const onInputChange = (_, value) => {
+    firstTimeOpen && setQuery(value);
+  };
 
-  const isOptionEqualToValue = (option, value) => option?.name === value?.name;
+  const isOptionEqualToValue = (option, value) => option?.id === value?.id;
 
   const getOptionLabel = (option) => option.name;
 
+  const onOpen = () => {
+    setOpen(true);
+    if (!firstTimeOpen) {
+      setFirstTimeOpen(true);
+    }
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
-    if (data) return;
+    let timeout;
 
-    const fetchingCompanies = async () => {
-      if (open && !data) {
-        await getCompanies({
-          params: {
-            access_token,
-            orders: { name: 'asc' },
-            limit: 25,
-            offset: 0,
-            attributes: [
-              'id',
-              'locations',
-              'name',
-              'time_zone',
-              'commission_value',
-              'mileage_calculation',
-              'stripe_account_id',
-              'stripe_charges_enabled',
-              'subscription_expired_at',
-            ],
-          },
-        });
-      }
-    };
+    if (query === 'All Companies') return;
 
-    fetchingCompanies();
-  }, [open, data, isSuccess, getCompanies, access_token]);
+    if (firstTimeOpen) {
+      timeout = setTimeout(
+        () => {
+          getCompanies({ token: access_token, query });
+        },
+        !!query ? 500 : 0
+      );
+      return () => clearTimeout(timeout);
+    }
+  }, [firstTimeOpen, getCompanies, access_token, query]);
 
   useEffect(() => {
     isSuccess && setOptions([...data.companies]);
@@ -67,7 +71,9 @@ const CompanyAutocomplete = (value, changeCompanyId, filter) => {
         ...params.InputProps,
         endAdornment: (
           <React.Fragment>
-            {isLoading ? <CircularProgress color="inherit" size={20} /> : null}
+            {!!isLoading ? (
+              <CircularProgress color="inherit" size={20} />
+            ) : null}
             {params.InputProps.endAdornment}
           </React.Fragment>
         ),
@@ -77,26 +83,27 @@ const CompanyAutocomplete = (value, changeCompanyId, filter) => {
   return (
     <Autocomplete
       freeSolo
-      sx={{ ml: '5px' }}
+      sx={sx}
       open={open}
-      value={value.value}
-      onChange={({ target: { value } }) =>
+      value={value.formattedValue}
+      onChange={(_, selectValue) =>
         changeCompanyId({
-          value,
-          formattedValue: { id: 'allCompanies', name: 'All Companies' },
+          value: selectValue,
+          formattedValue: {
+            ...(selectValue
+              ? { id: selectValue.id, name: selectValue.name }
+              : { id: '', name: '' }),
+          },
           error: '',
         })
       }
-      onOpen={() => {
-        setOpen(true);
-      }}
-      onClose={() => {
-        setOpen(false);
-      }}
+      onInputChange={onInputChange}
+      onOpen={onOpen}
+      onClose={onClose}
       isOptionEqualToValue={isOptionEqualToValue}
       getOptionLabel={getOptionLabel}
       options={
-        !filter
+        filter
           ? [{ id: 'allCompanies', name: 'All Companies' }, ...options]
           : options
       }

@@ -1,6 +1,6 @@
 import { TableCell, TableRow } from '@mui/material';
 import _startCase from 'lodash/startCase';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import BaseCreateBtn from '../../components/common/baseCreateBtn/BaseCreateBtn';
 import BaseDetailsBtn from '../../components/common/baseDetailsBtn/BaseDetailsBtn';
@@ -14,26 +14,15 @@ import { BaseTableCell } from '../../components/common/baseTable/BaseTable.style
 
 const Companies = () => {
   const { access_token, companiesNameCells } = useConstants();
+  const [offset, setOffset] = useState(0);
   const { data, isLoading } = useGetCompaniesQuery({
-    params: {
-      access_token,
-      orders: { name: 'asc' },
-      limit: 25,
-
-      offset: 0,
-      attributes: [
-        'id',
-        'locations',
-        'name',
-        'time_zone',
-        'commission_value',
-        'mileage_calculation',
-        'stripe_account_id',
-        'stripe_charges_enabled',
-        'subscription_expired_at',
-      ],
-    },
+    token: access_token,
+    offset,
   });
+  const pagination = useSelector(
+    (state) => state.companiesList?.all.pagination
+  );
+  const { total_count } = pagination;
   const { companiesList } = useCompanies();
   const companiesDataStore = useSelector(
     (state) => state.companiesList?.all?.companies
@@ -79,6 +68,8 @@ const Companies = () => {
         loading={isLoading}
         bodyCells={bodyCells}
         headerCells={headerCells}
+        offset={setOffset}
+        total_count={total_count}
       />
     </MainContainer>
   );

@@ -1,6 +1,6 @@
 import { TableCell, TableRow } from '@mui/material';
 import _startCase from 'lodash/startCase';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 //Local files
 import BaseCreateBtn from '../../components/common/baseCreateBtn/BaseCreateBtn';
@@ -14,18 +14,16 @@ import { useGetAdminsListApiQuery } from '../../redux/API/AdminsAPI';
 import { BaseTableCell } from '../../components/common/baseTable/BaseTable.styled';
 
 const Admins = () => {
-  const { adminsNameCells, access_token, ADMINS_ATTRIBUTES } = useConstants();
+  const { adminsNameCells, access_token } = useConstants();
   const { adminsList } = useAdmins();
-  const list = useSelector((state) => state.adminsList?.all?.data);
+  const [offset, setOffset] = useState(0);
+  const { admins, pagination } = useSelector((state) => state.adminsList?.all);
+
+  const { total_count } = pagination;
   //async request
   const { data, isLoading } = useGetAdminsListApiQuery({
-    attributes: {
-      access_token,
-      limit: 25,
-      offset: 0,
-      orders: { email: 'asc' },
-      attributes: ADMINS_ATTRIBUTES,
-    },
+    token: access_token,
+    offset,
   });
 
   useEffect(() => {
@@ -49,7 +47,7 @@ const Admins = () => {
     );
   });
 
-  const bodyCells = list.map(({ id, email }) => (
+  const bodyCells = admins.map(({ id, email }) => (
     <TableRow key={id}>
       <TableCell>{email}</TableCell>
 
@@ -68,6 +66,8 @@ const Admins = () => {
         loading={isLoading}
         headerCells={headerCells}
         bodyCells={bodyCells}
+        offset={setOffset}
+        total_count={total_count}
       />
     </MainContainer>
   );

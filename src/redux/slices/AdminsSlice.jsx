@@ -2,12 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const adminsData = createSlice({
   name: 'adminsData',
-  initialState: { all: { data: [] }, admin: { id: '', email: '' } },
+  initialState: {
+    all: { data: [], pagination: [] },
+    admin: { id: '', email: '' },
+  },
   reducers: {
     addAdminsList(state, action) {
-      state.all.data = action.payload?.admins;
-      console.log(state);
-      console.log(action.payload);
+      state.all = action.payload;
     },
   },
 });

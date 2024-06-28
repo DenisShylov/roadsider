@@ -5,11 +5,26 @@ import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import React from 'react';
+import React, { useState } from 'react';
 import Progress from '../progress/Progress';
 import { ColumnContainer } from './BaseTable.styled';
 
-const BaseTable = ({ loading, headerCells, bodyCells }) => {
+const BaseTable = ({
+  total_count,
+  loading,
+  headerCells,
+  bodyCells,
+  offset,
+}) => {
+  const [page, setPage] = useState(0);
+
+  const onChangePage = (_, newPage) => {
+    if (newPage !== page) {
+      setPage(newPage);
+      offset((prev) => prev + 25);
+    }
+  };
+
   return (
     <ColumnContainer>
       <TableContainer component={Paper} sx={{ margin: 'auto' }}>
@@ -35,11 +50,11 @@ const BaseTable = ({ loading, headerCells, bodyCells }) => {
       </TableContainer>
       <TablePagination
         component="div"
-        count={bodyCells?.length}
-        page={0}
-        onPageChange={(e) => e + 1}
-        rowsPerPage={-1}
-        rowsPerPageOptions={[]}
+        count={total_count}
+        page={total_count <= 25 ? 0 : page}
+        onPageChange={onChangePage}
+        rowsPerPage={25}
+        rowsPerPageOptions={[25]}
       />
     </ColumnContainer>
   );
