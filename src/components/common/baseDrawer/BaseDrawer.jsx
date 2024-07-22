@@ -1,14 +1,15 @@
+import { Button, Drawer } from '@mui/material';
 import React from 'react';
 
-const BaseDrawer = () => {
+const BaseDrawer = ({ open = false, onClose }) => {
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
   return (
     <Drawer
-      anchor={anchor}
-      open={state[anchor]}
-      onClose={toggleDrawer(anchor, false)}
-    >
-      {list(anchor)}
-    </Drawer>
+      anchor={'right'}
+      open={open}
+      children={<Button onClick={onClose}>Cancel</Button>}
+    />
   );
 };
 

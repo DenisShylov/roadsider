@@ -11,6 +11,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
 import { usersAPI } from './API/UsersAPI';
 import usersSlice from './slices/UsersSlice';
+import AppSlice from './slices/AppSlice';
 
 const persistConfig = {
   key: 'session',
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   insuranceList: InsuranceAccountsSlice,
   [usersAPI.reducerPath]: usersAPI.reducer,
   usersList: usersSlice,
+  app: AppSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

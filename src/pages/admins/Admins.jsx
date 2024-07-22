@@ -12,6 +12,7 @@ import useConstants from '../../constants/Constants';
 import useAdmins from '../../hooks/useAdmins';
 import { useGetAdminsListApiQuery } from '../../redux/API/AdminsAPI';
 import { BaseTableCell } from '../../components/common/baseTable/BaseTable.styled';
+import BaseDrawer from '../../components/common/baseDrawer/BaseDrawer';
 
 const Admins = () => {
   const { adminsNameCells, access_token } = useConstants();
@@ -59,17 +60,20 @@ const Admins = () => {
   ));
 
   return (
-    <MainContainer component="main">
-      <BaseCreateBtn />
+    <>
+      <MainContainer component="main">
+        <BaseCreateBtn />
 
-      <BaseTable
-        loading={isLoading}
-        headerCells={headerCells}
-        bodyCells={bodyCells}
-        offset={setOffset}
-        total_count={total_count}
-      />
-    </MainContainer>
+        <BaseTable
+          loading={isLoading}
+          headerCells={headerCells}
+          bodyCells={bodyCells}
+          offset={setOffset}
+          total_count={total_count}
+        />
+      </MainContainer>
+      <BaseDrawer />
+    </>
   );
 };
 

@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import React from 'react';
-import _startCase from 'lodash/startCase';
 // Local files
 import { TextField } from '@mui/material';
 import CompanyAutocomplete from '../../../components/common/CompanyAutocomplete/CompanyAutocomplete';
@@ -10,7 +9,7 @@ import { FiltersContainer } from '../../../components/ui/CommonStyles';
 
 const Filter = ({ type, changeType, companyId, changeCompanyId }) => {
   const { SELECT_TYPE } = useConstants();
-  console.log('FILTER CHANGE COMPANY ID ', typeof changeCompanyId);
+
   const handleChangeType = ({ target: { value } }) => {
     const filteredType = SELECT_TYPE.filter((type) => type.label === value);
 

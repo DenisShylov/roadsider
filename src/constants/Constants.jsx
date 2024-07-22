@@ -26,6 +26,19 @@ export const navItems = [
   { key: uuid(), name: 'library', icon: <LibraryBooksIcon /> },
 ];
 
+export const reasons = {
+  ADMIN: 'admin',
+  BASIC_CHARGE: 'basic_charge',
+  FEE_CHARGE: 'fee_charge',
+  COMPANY: 'company',
+  DIGITAL_DISPATCH_INSURANCE_ACCOUNT: 'digital_dispatch_insurance_account',
+  URGENTLY_INSURANCE_ACCOUNT: 'urgently_insurance_account',
+  DISPATCH: 'dispatch',
+  SERVICE: 'service',
+  TYPE: 'type',
+  USER: 'user',
+};
+
 const useConstants = () => {
   //ACCESS TOKEN
   const access_token = useSelector(
