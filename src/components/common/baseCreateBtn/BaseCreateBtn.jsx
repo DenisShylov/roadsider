@@ -4,17 +4,16 @@ import BaseDrawer from '../baseDrawer/BaseDrawer';
 import useApp from '../../../hooks/useApp';
 import { useSelector } from 'react-redux';
 
-const BaseCreateBtn = () => {
+const BaseCreateBtn = ({ reason }) => {
   const { openAppDrawer } = useApp();
-  const open = useSelector((state) => state.app.formDrawer.open);
-  console.log(open);
+  const open = useSelector((state) => state.app[reason]?.formDrawer?.open);
+  console.log('OPEN', open);
   // const [openDrawer, setOpenDrawer] = useState(false);
-  const handleToggleDrawer = () => openAppDrawer(!open);
+  const handleToggleDrawer = () => openAppDrawer({ open: !open, reason });
   return (
     <>
       <CreateBtnContainer>
         <CreateBtn variant="contained" onClick={handleToggleDrawer}>
-          {' '}
           Create
         </CreateBtn>
       </CreateBtnContainer>

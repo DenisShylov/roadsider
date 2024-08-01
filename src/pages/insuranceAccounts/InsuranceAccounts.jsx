@@ -36,7 +36,7 @@ const InsuranceAccounts = () => {
 
   const { data, isLoading } = useGetInsuranseAccQuery({
     access_token,
-    ...(companyId && { company_id: companyId.formattedValue.id }),
+    ...(!companyId && { company_id: companyId.formattedValue.id }),
     limit: 25,
     offset,
     orders: { name: 'asc' },
@@ -145,7 +145,7 @@ const InsuranceAccounts = () => {
           companyId={companyId}
           changeCompanyId={handleChangeCompanyId}
         />
-        <BaseCreateBtn />
+        <BaseCreateBtn reson={'digital_dispatch_insurance_account'} />
       </Box>
       <BaseTable
         loading={isLoading}

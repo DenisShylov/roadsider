@@ -118,7 +118,7 @@ const Users = () => {
             changeCompanyId={setCompanyId}
           />
         </FiltersContainer>
-        <BaseCreateBtn />
+        <BaseCreateBtn reason={'user'} />
       </Box>
 
       <BaseTable

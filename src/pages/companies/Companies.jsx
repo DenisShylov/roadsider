@@ -63,7 +63,7 @@ const Companies = () => {
 
   return (
     <MainContainer>
-      <BaseCreateBtn />
+      <BaseCreateBtn reson={'company'} />
       <BaseTable
         loading={isLoading}
         bodyCells={bodyCells}

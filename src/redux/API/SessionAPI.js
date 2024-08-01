@@ -5,7 +5,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const sessionBody = {
   session: { platform_type: 'web' },
-  attributes: ['id', 'platform_type', 'access_token'],
+  attributes: ['id', 'access_token'],
 };
 
 export const sessionAPI = createApi({
@@ -22,7 +22,7 @@ export const sessionAPI = createApi({
       query: (data) => ({
         url: 'sessions',
         method: 'POST',
-        body: { ...data, ...sessionBody },
+        body: { ...sessionBody, ...data },
       }),
       invalidatesTags: [{ type: 'Authenticated', id: 'Auth' }],
     }),

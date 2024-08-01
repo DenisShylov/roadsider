@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const adminsData = createSlice({
   name: 'adminsData',
   initialState: {
-    all: { data: [], pagination: [] },
+    all: { admins: [], pagination: [] },
     admin: { id: '', email: '' },
   },
   reducers: {

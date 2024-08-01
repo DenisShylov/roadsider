@@ -7,6 +7,14 @@ export const SigninContainer = styled(Container)(({ theme }) => ({
   height: '100vh',
   padding: '16px 16px 160px',
 }));
+export const ResendBtn = styled(Button)((theme) => ({
+  minHeight: '50px',
+  marginTop: '40px',
+  minWidth: '64px',
+  width: 'inherit',
+  margin: 0,
+}));
+
 export const LoginBtn = styled(Button)({
   margin: 0,
   minHeight: '64px',

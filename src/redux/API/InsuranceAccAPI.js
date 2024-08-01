@@ -10,7 +10,6 @@ export const insuranceAccAPI = createApi({
   endpoints: (build) => ({
     getInsuranseAcc: build.query({
       query: (args) => {
-        const { attributes } = args;
         console.log(args);
         return {
           url: 'insurance_accounts',

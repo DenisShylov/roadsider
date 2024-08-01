@@ -18,14 +18,14 @@ const Admins = () => {
   const { adminsNameCells, access_token } = useConstants();
   const { adminsList } = useAdmins();
   const [offset, setOffset] = useState(0);
-  const { admins, pagination } = useSelector((state) => state.adminsList?.all);
-
-  const { total_count } = pagination;
   //async request
   const { data, isLoading } = useGetAdminsListApiQuery({
     token: access_token,
     offset,
   });
+  const { admins, pagination } = useSelector((state) => state.adminsList?.all);
+
+  const { total_count } = pagination;
 
   useEffect(() => {
     const getAdmins = () => {
@@ -62,7 +62,7 @@ const Admins = () => {
   return (
     <>
       <MainContainer component="main">
-        <BaseCreateBtn />
+        <BaseCreateBtn reason={'admin'} />
 
         <BaseTable
           loading={isLoading}
