@@ -8,10 +8,12 @@ import useConstants from '../../../constants/Constants';
 import { FiltersContainer } from '../../../components/ui/CommonStyles';
 
 const Filter = ({ type, changeType, companyId, changeCompanyId }) => {
-  const { SELECT_TYPE } = useConstants();
+  const { SELECT_TYPE_INSURANCE_ACC } = useConstants();
 
   const handleChangeType = ({ target: { value } }) => {
-    const filteredType = SELECT_TYPE.filter((type) => type.label === value);
+    const filteredType = SELECT_TYPE_INSURANCE_ACC.filter(
+      (type) => type.label === value
+    );
 
     changeType(filteredType);
   };
@@ -26,7 +28,7 @@ const Filter = ({ type, changeType, companyId, changeCompanyId }) => {
           label="Select type"
           onChange={handleChangeType}
         >
-          {SELECT_TYPE.map(({ value, label }) => (
+          {SELECT_TYPE_INSURANCE_ACC.map(({ value, label }) => (
             <MenuItem key={value} value={label}>
               {label}
             </MenuItem>

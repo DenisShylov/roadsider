@@ -15,8 +15,8 @@ import { useGetInsuranseAccQuery } from '../../redux/API/InsuranceAccAPI';
 import Filter from './Filter/Filter';
 
 const InsuranceAccounts = () => {
-  const { SELECT_TYPE } = useConstants();
-  const [type, setType] = useState(SELECT_TYPE);
+  const { SELECT_TYPE_INSURANCE_ACC } = useConstants();
+  const [type, setType] = useState(SELECT_TYPE_INSURANCE_ACC);
   const [offset, setOffset] = useState(0);
   const pagination = useSelector(
     (state) => state.insuranceList?.all.pagination

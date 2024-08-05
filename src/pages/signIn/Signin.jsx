@@ -78,7 +78,6 @@ const Signin = () => {
   useEffect(() => {
     const test = () => {
       if (data) {
-        console.log('DATA', data);
         createSession(data);
         navigate('/admins');
       }

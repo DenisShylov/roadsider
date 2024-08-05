@@ -8,6 +8,7 @@ import Companies from '../pages/companies/Companies';
 import ProtectedRoutes from './ProtectedRoutes';
 import InsuranceAccounts from '../pages/insuranceAccounts/InsuranceAccounts';
 import Users from '../pages/users/Users';
+import Dispatches from '../pages/dispatches/Dispatches';
 
 export const router = createBrowserRouter([
   {
@@ -46,7 +47,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/dispatches',
-        element: <div>dispatches</div>,
+        element: <Dispatches />,
       },
       {
         path: '/library',

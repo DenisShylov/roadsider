@@ -66,7 +66,7 @@ const useConstants = () => {
     'actions',
   ];
 
-  const SELECT_TYPE = [
+  const SELECT_TYPE_INSURANCE_ACC = [
     { value: 'digital_dispatch_insurance_account', label: 'Digital Dispatch' },
     { value: 'urgently_insurance_account', label: 'Urgently' },
   ];
@@ -86,6 +86,16 @@ const useConstants = () => {
     { id: uuid(), value: 'actions', align: 'right' },
   ];
 
+  // DISPATCHES
+  const dispatchesHeaderName = [
+    { id: uuid(), value: 'text', align: 'left' },
+    { id: uuid(), value: 'actions', align: 'right' },
+  ];
+
+  const SELECT_TYPE = [
+    { value: 'digital_dispatch', label: 'Digital Dispatch' },
+    { value: 'urgently', label: 'Urgently' },
+  ];
   // LIBRARY
   const SERVICE_TYPE = {
     services: 'basic',
@@ -131,9 +141,11 @@ const useConstants = () => {
     ADMINS_ATTRIBUTES,
     SERVICE_TYPE,
     insuranseAccountsNameCells,
+    SELECT_TYPE_INSURANCE_ACC,
     SELECT_TYPE,
     usersRoles,
     usersNameCells,
+    dispatchesHeaderName,
     // TableCells,
   };
 };

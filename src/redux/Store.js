@@ -13,18 +13,14 @@ import { usersAPI } from './API/UsersAPI';
 import usersSlice from './slices/UsersSlice';
 import AppSlice from './slices/AppSlice';
 import { twoFactorAuthAPI } from './API/TwoFactorAuth';
+import { profileAPI } from './API/ProfileAPI';
+import profileSlice from './slices/ProfileSlice';
+import { dispathesAPI } from './API/DispatchesAPI';
+import dispatchesSlice from './slices/DispatchesSlice';
 
 const persistConfig = {
   key: 'session',
   storage,
-  // blacklist: [
-  //   sessionAPI.reducerPath,
-  //   twoFactorAuthAPI.reducerPath,
-  //   adminsAPI.reducerPath,
-  //   companiesAPI.reducerPath,
-  //   insuranceAccAPI.reducerPath,
-  //   usersAPI.reducerPath,
-  // ],
   whitelist: ['activeSession'],
 };
 
@@ -41,6 +37,10 @@ const rootReducer = combineReducers({
   [usersAPI.reducerPath]: usersAPI.reducer,
   usersList: usersSlice,
   app: AppSlice,
+  [profileAPI.reducerPath]: profileAPI.reducer,
+  profileAdmin: profileSlice,
+  [dispathesAPI.reducerPath]: dispathesAPI.reducer,
+  dispatchesData: dispatchesSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -55,7 +55,9 @@ const store = configureStore({
       adminsAPI.middleware,
       companiesAPI.middleware,
       insuranceAccAPI.middleware,
-      usersAPI.middleware
+      usersAPI.middleware,
+      profileAPI.middleware,
+      dispathesAPI.middleware
     ),
 });
 
