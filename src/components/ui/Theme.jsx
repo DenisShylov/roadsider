@@ -44,6 +44,13 @@ const theme = createTheme({
   },
   // Defauld components
   components: {
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          margin: 0,
+        },
+      },
+    },
     MuiListItemButton: {
       styleOverrides: {
         root: {

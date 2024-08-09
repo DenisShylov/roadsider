@@ -101,6 +101,18 @@ const useConstants = () => {
     services: 'basic',
     additional: 'additional',
   };
+
+  const libraryHeaderName = [
+    { id: uuid(), value: 'name', align: 'left' },
+    { id: uuid(), value: 'actions', align: 'right' },
+  ];
+
+  const libraryChargesHeaderName = [
+    { id: uuid(), value: 'name', align: 'left' },
+    { id: uuid(), value: 'rate types', align: 'left' },
+    { id: uuid(), value: 'mile type', align: 'left' },
+    { id: uuid(), value: 'actions', align: 'right' },
+  ];
   // const TableCells = (thead, tbody, name,time_zone,) => {
   //   const headerCells = thead.map((name, index) => {
   //     let textAlign = null;
@@ -146,6 +158,8 @@ const useConstants = () => {
     usersRoles,
     usersNameCells,
     dispatchesHeaderName,
+    libraryHeaderName,
+    libraryChargesHeaderName,
     // TableCells,
   };
 };

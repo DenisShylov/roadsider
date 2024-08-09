@@ -9,6 +9,7 @@ import ProtectedRoutes from './ProtectedRoutes';
 import InsuranceAccounts from '../pages/insuranceAccounts/InsuranceAccounts';
 import Users from '../pages/users/Users';
 import Dispatches from '../pages/dispatches/Dispatches';
+import Library from '../pages/library/Library';
 
 export const router = createBrowserRouter([
   {
@@ -51,7 +52,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/library',
-        element: <div>library</div>,
+        element: <Library />,
       },
     ],
   },

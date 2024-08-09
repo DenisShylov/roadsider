@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 const BaseCreateBtn = ({ reason }) => {
   const { openAppDrawer } = useApp();
   const open = useSelector((state) => state.app[reason]?.formDrawer?.open);
-  console.log('OPEN', open);
+
   // const [openDrawer, setOpenDrawer] = useState(false);
   const handleToggleDrawer = () => openAppDrawer({ open: !open, reason });
   return (

@@ -17,6 +17,10 @@ import { profileAPI } from './API/ProfileAPI';
 import profileSlice from './slices/ProfileSlice';
 import { dispathesAPI } from './API/DispatchesAPI';
 import dispatchesSlice from './slices/DispatchesSlice';
+import { libraryAPI } from './API/LibraryAPI';
+import ServiceSlice from './slices/ServiceSlice';
+import ChargeSlice from './slices/ChargeSlice';
+import TypesSlice from './slices/TypesSlice';
 
 const persistConfig = {
   key: 'session',
@@ -41,6 +45,10 @@ const rootReducer = combineReducers({
   profileAdmin: profileSlice,
   [dispathesAPI.reducerPath]: dispathesAPI.reducer,
   dispatchesData: dispatchesSlice,
+  [libraryAPI.reducerPath]: libraryAPI.reducer,
+  serviceData: ServiceSlice,
+  chargeData: ChargeSlice,
+  typeData: TypesSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -57,7 +65,8 @@ const store = configureStore({
       insuranceAccAPI.middleware,
       usersAPI.middleware,
       profileAPI.middleware,
-      dispathesAPI.middleware
+      dispathesAPI.middleware,
+      libraryAPI.middleware
     ),
 });
 
